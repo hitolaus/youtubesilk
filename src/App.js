@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import ScrollToTop from './ScrollToTop';
+import Header from './Header';
+import VideoList from './VideoList';
+import VideoPlayer from './VideoPlayer';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />   
+      <ScrollToTop>
+        <Routes>
+            <Route path="/" element={<VideoList />} />
+            <Route path=":videoId" element={<VideoPlayer />} />
+        </Routes>
+      </ScrollToTop>
+    </>
   );
 }
 

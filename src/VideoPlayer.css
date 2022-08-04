@@ -1,0 +1,9 @@
+.videoplayer--player {
+    position: relative;
+}
+
+.videoplayer--player-overlay {
+    position: absolute;
+    width: 100%;
+    height: 500px;
+}
