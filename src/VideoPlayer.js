@@ -13,8 +13,7 @@ function VideoPlayer() {
         height: '500',
         playerVars: { 
             autoplay: 1,
-            controls: 0,
-            rel: 0
+            controls: 1
         }
     };
 
@@ -36,6 +35,11 @@ function VideoPlayer() {
                     opts={options} 
                     onReady={(e) => setPlayer(e.target)}
                     />
+            </div>
+            <div className='videoplayer--description'>
+                <div className='videoplayer--description-channel'>Foo</div>
+                <div className='videoplayer--description-title'>Foo</div>
+                <div className='videoplayer--description-description'>Bar</div>
             </div>
             <div className='videoplayer--related-videos'>
                 <VideoList related={videoId} />
