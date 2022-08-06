@@ -1,12 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import YouTube from "react-youtube";
 import VideoList from './VideoList';
+import axios from "axios";
 import './VideoPlayer.css';
 
 function VideoPlayer() {
     const { videoId } = useParams();
     const [ player, setPlayer ] = useState();
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (player && player.getPlayerState() === 1) {
+                axios.put('https://api.syscall.dk/youtube/v1/usages')
+                    .then((response) => {
+                        // TODO: Magic number 5
+                        if (response.data?.cnt > 5) {
+                            player.pauseVideo();
+                        }
+                    });
+            }
+        }, 60000);
+        return () => clearInterval(interval);
+    });
 
     const options = {
         width: '100%',
