@@ -25,7 +25,6 @@ function UsageTimer(props) {
         return () => clearInterval(interval);
     });
 
-
     return (
         <div className={`usagetimer ${exceedsMaxUsage ? 'locked' : ''}`}>
             {exceedsMaxUsage &&    
@@ -35,7 +34,13 @@ function UsageTimer(props) {
                     </div>
                 </div>
             }
-            <div className="usagetimer--timer"><MdLockClock /> {remainingUsage}m</div>
+
+            <div className="usagetimer--progressbar">
+                <div className="usagetimer--progressbar-bar" style={{width: (Math.round((remainingUsage)*100/60))+'%'}}>
+                    <MdLockClock /> {remainingUsage}m
+                </div>
+            </div>
+
             {props.children}
         </div>
     );

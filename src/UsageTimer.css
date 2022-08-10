@@ -24,18 +24,24 @@
     font-size: 2em;
 }
 
-.usagetimer--timer {
+.usagetimer--progressbar {
     position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2em;
+    background-color: grey;
+    opacity: 0.9;
+    box-shadow: 0px -8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.usagetimer--progressbar-bar {
     display: flex;
     align-items: center;
-    right: 0;
-    bottom: 1em;
-    border-top-left-radius: 0.5em;
-    border-bottom-left-radius: 0.5em;
-    font-size: 2em;
-    padding: 0.5em;
+    justify-content: center;
+    height: 100%;
+    font-weight: bold;
     color: white;
-    background-color: grey;
-    opacity: 0.7;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    background-color: red;
+    transition: width 2s;
 }

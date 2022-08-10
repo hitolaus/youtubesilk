@@ -22,3 +22,19 @@
 .videoplayer--description-description {
     padding-top: 1.5em;
 }
+
+.videoplayer--description-actions {
+    padding-top: 2em;
+    display: flex;
+    gap: 1em;
+}
+.videoplayer--description-actions-action {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.videoplayer--description-actions-action.active {
+    font-weight: bold;
+    color: red;
+    cursor: not-allowed;
+}

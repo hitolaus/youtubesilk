@@ -3,11 +3,21 @@ import { useParams } from 'react-router-dom';
 import YouTube from "react-youtube";
 import VideoList from './VideoList';
 import axios from "axios";
+import { MdBlock } from "react-icons/md";
 import './VideoPlayer.css';
 
 function VideoPlayer() {
     const { videoId } = useParams();
     const [ player, setPlayer ] = useState();
+    const [ video, setVideo ] = useState({});
+
+    useEffect(() => {
+        axios.get('https://api.syscall.dk/youtube/v1/videos/' + videoId)
+            .then((response) => {
+                setVideo(response.data);
+            });
+
+    }, [videoId]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -43,6 +53,20 @@ function VideoPlayer() {
         }
     };
 
+    const toggleBlacklistVideo = async () => {
+        if (video.blacklisted) {
+            return;
+        }
+        try {
+            await axios.post('https://api.syscall.dk/youtube/v1/blacklists?videoId='+videoId)
+            setVideo({...video, blacklisted: true});
+        }
+        catch (e) {
+            // TODO: proper handling
+            console.log('Error has occured ', e);
+        }
+    };
+
     return (
         <div className='videoplayer'>
             <div className='videoplayer--player'>
@@ -53,9 +77,12 @@ function VideoPlayer() {
                     />
             </div>
             <div className='videoplayer--description'>
-                <div className='videoplayer--description-channel'>Foo</div>
-                <div className='videoplayer--description-title'>Foo</div>
-                <div className='videoplayer--description-description'>Bar</div>
+                <div className='videoplayer--description-channel'>{video.channelTitle}</div>
+                <div className='videoplayer--description-title'>{video.title}</div>
+                <div className='videoplayer--description-description'>{video.description}</div>
+                <div className='videoplayer--description-actions'>
+                    <div onClick={() => toggleBlacklistVideo()} className={`videoplayer--description-actions-action ${video.blacklisted ? 'active' : ''}`} ><MdBlock />&nbsp;Video</div>
+                </div>
             </div>
             <div className='videoplayer--related-videos'>
                 <VideoList related={videoId} />

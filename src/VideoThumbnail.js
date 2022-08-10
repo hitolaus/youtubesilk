@@ -5,18 +5,18 @@ import './VideoThumbnail.css';
 function VideoThumbnail(props) {
     return (
         <div className='videothumbnail'>
-            <Link to={'/' + props.video.id.videoId}>
-                <img src={props.video.snippet?.thumbnails?.high?.url} 
-                     alt={props.video.snippet?.title}
+            <Link to={'/' + props.video.videoId}>
+                <img src={props.video.thumbnail} 
+                     alt={props.video.title}
                      draggable='false'
                      loading='lazy'
                 />
             </Link>
             <div className='videothumbnail--subtitle'>
-                {props.video.snippet?.channelTitle}
+                {props.video.channelTitle}
             </div>
             <div className='videothumbnail--title'>
-                {props.video.snippet?.title}
+                {props.video.title}
             </div>
         </div>
     );
