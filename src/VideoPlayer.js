@@ -5,6 +5,7 @@ import VideoList from './VideoList';
 import axios from "axios";
 import { MdBlock } from "react-icons/md";
 import './VideoPlayer.css';
+import './Button.css';
 
 function VideoPlayer() {
     const { videoId } = useParams();
@@ -54,16 +55,20 @@ function VideoPlayer() {
     };
 
     const toggleBlacklistVideo = async () => {
-        if (video.blacklisted) {
-            return;
-        }
+        const newState = !video.blacklisted;
+
+        setVideo({...video, blacklisted: newState});
         try {
-            await axios.post('https://api.syscall.dk/youtube/v1/blacklists?videoId='+videoId)
-            setVideo({...video, blacklisted: true});
+            if (video.blacklisted) {
+                await axios.delete('https://api.syscall.dk/youtube/v1/blacklists?videoId='+videoId)
+            }
+            else {
+                await axios.post('https://api.syscall.dk/youtube/v1/blacklists?videoId='+videoId)
+            }
         }
         catch (e) {
-            // TODO: proper handling
-            console.log('Error has occured ', e);
+            setVideo({...video, blacklisted: !newState});
+            alert('Blacklisting failed');
         }
     };
 
@@ -81,7 +86,7 @@ function VideoPlayer() {
                 <div className='videoplayer--description-title'>{video.title}</div>
                 <div className='videoplayer--description-description'>{video.description}</div>
                 <div className='videoplayer--description-actions'>
-                    <div onClick={() => toggleBlacklistVideo()} className={`videoplayer--description-actions-action ${video.blacklisted ? 'active' : ''}`} ><MdBlock />&nbsp;Video</div>
+                    <button onClick={() => toggleBlacklistVideo()} className={`videoplayer--description-actions-action ${video.blacklisted ? 'active' : ''}`} ><MdBlock />&nbsp;{video.blacklisted ? 'Video Blocked' : 'Block Video'}</button>
                 </div>
             </div>
             <div className='videoplayer--related-videos'>

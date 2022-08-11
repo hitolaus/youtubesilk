@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Header.css';
+import './Button.css';
 import { MdHome, MdSearch } from "react-icons/md";
 
 function Header() {

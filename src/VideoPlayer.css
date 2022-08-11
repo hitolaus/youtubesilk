@@ -36,5 +36,4 @@
 .videoplayer--description-actions-action.active {
     font-weight: bold;
     color: red;
-    cursor: not-allowed;
 }
