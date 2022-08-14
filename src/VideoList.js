@@ -9,7 +9,8 @@ function VideoList(props) {
     const [ searchParams ] = useSearchParams();
     const [ videos, setVideos ] = useState([]);
 
-    let q = searchParams.get('q');
+    let q = searchParams.get('q') || props.q;
+    let related = searchParams.get('related') || props.related;
 
     useEffect(() => {
         let params = {};
@@ -21,13 +22,16 @@ function VideoList(props) {
         if (q) {
             params['q'] = q;
         }
+        if (related) {
+            params['related'] = related;
+        }
 
         axios.get('https://api.syscall.dk/youtube/v1/videos', { params: params })
         .then((response) => {
             setVideos(response.data);
         });
 
-    }, [props.related, q]);
+    }, [related, q]);
 
 
 
