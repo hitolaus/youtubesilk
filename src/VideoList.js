@@ -9,7 +9,7 @@ function VideoList(props) {
     const [ searchParams ] = useSearchParams();
     const [ videos, setVideos ] = useState([]);
 
-    let q = searchParams.get('q') || 'kids';
+    let q = searchParams.get('q');
 
     useEffect(() => {
         let params = {};
@@ -17,7 +17,11 @@ function VideoList(props) {
         if (process.env.REACT_APP_YOUTUBE_API_MOCK === 'true') {
             params['mock'] = true;
         }
-       
+
+        if (q) {
+            params['q'] = q;
+        }
+
         axios.get('https://api.syscall.dk/youtube/v1/videos', { params: params })
         .then((response) => {
             setVideos(response.data);
