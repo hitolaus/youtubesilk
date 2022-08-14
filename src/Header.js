@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Header.css';
 import './Button.css';
-import { MdHome, MdSearch } from "react-icons/md";
+import { MdSearch } from "react-icons/md";
+import {ReactComponent as Logo } from './logo.svg';
 
 function Header() {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ function Header() {
 
     return (
         <div className='header'>
-            <button onClick={() => goHome()}><MdHome size="2em"/></button>
+            <div className="header--logo" onClick={() => goHome()}><Logo /></div>
             <form onSubmit={handleSubmit}>
                 <input placeholder='Search' onChange={(e) => setQuery(e.target.value)} />
                 <button><MdSearch size="2em"/></button>

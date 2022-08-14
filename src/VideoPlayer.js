@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import YouTube from "react-youtube";
 import VideoList from './VideoList';
 import axios from "axios";
-import { MdBlock } from "react-icons/md";
+import {MdBlock, MdPlayCircleOutline} from "react-icons/md";
 import './VideoPlayer.css';
 import './Button.css';
 
@@ -11,6 +11,7 @@ function VideoPlayer() {
     const { videoId } = useParams();
     const [ player, setPlayer ] = useState();
     const [ video, setVideo ] = useState({});
+    const [ playing, setPlaying ] = useState(false);
 
     useEffect(() => {
         axios.get('https://api.syscall.dk/youtube/v1/videos/' + videoId)
@@ -54,6 +55,10 @@ function VideoPlayer() {
         }
     };
 
+    const stateChange = () => {
+        setPlaying(player.getPlayerState() === 1);
+    };
+
     const toggleBlacklistVideo = async () => {
         const newState = !video.blacklisted;
 
@@ -75,10 +80,13 @@ function VideoPlayer() {
     return (
         <div className='videoplayer'>
             <div className='videoplayer--player'>
-                <div className='videoplayer--player-overlay' onClick={() => togglePlay()}></div>
+                <div className={`videoplayer--player-overlay ${!playing ? 'visible' : ''}`} onClick={() => togglePlay()}>
+                    <MdPlayCircleOutline />
+                </div>
                 <YouTube videoId={videoId}
-                    opts={options} 
-                    onReady={(e) => setPlayer(e.target)}
+                        opts={options}
+                        onReady={(e) => setPlayer(e.target)}
+                         onStateChange={(e) => stateChange()}
                     />
             </div>
             <div className='videoplayer--description'>
