@@ -13,6 +13,7 @@ function App() {
         <ScrollToTop>
           <Routes>
               <Route path="/" element={<VideoList />} />
+              <Route path="/index.html" element={<VideoList />} />
               <Route path=":videoId" element={<VideoPlayer />} />
           </Routes>
         </ScrollToTop>
