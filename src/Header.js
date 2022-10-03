@@ -18,7 +18,7 @@ function Header() {
         if (!query) {
             return;
         }
-        navigate("/?q="+query, { replace: true });
+        navigate("/search?q="+query, { replace: true });
       }
 
     return (
