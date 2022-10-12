@@ -86,7 +86,7 @@ function VideoPlayer() {
                 <YouTube videoId={videoId}
                         opts={options}
                         onReady={(e) => setPlayer(e.target)}
-                         onStateChange={(e) => stateChange()}
+                        onStateChange={(e) => stateChange()}
                     />
             </div>
             <div className='videoplayer--description'>
