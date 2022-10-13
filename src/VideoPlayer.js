@@ -50,10 +50,7 @@ function VideoPlayer() {
 
     const togglePlay = () => {
         if (player) {
-            setTime({
-                current: new Date(player.getCurrentTime() * 1000).toISOString().substring(14, 19),
-                left: new Date(player.getDuration() * 1000).toISOString().substring(14, 19)
-            });
+            updateTime(player);
 
             if (player.getPlayerState() === 1) {
                 player.pauseVideo()
@@ -61,6 +58,18 @@ function VideoPlayer() {
                 player.playVideo();
             }
         }
+    };
+
+    const updateTime = (p) => {
+        setTime({
+            current: new Date(p.getCurrentTime() * 1000).toISOString().substring(14, 19),
+            left: new Date(p.getDuration() * 1000).toISOString().substring(14, 19)
+        });
+    };
+
+    const onPlayerReady = (p) => {
+        setPlayer(p);
+        updateTime(p);
     };
 
     const stateChange = () => {
@@ -96,7 +105,7 @@ function VideoPlayer() {
                 </div>
                 <YouTube videoId={videoId}
                         opts={options}
-                        onReady={(e) => setPlayer(e.target)}
+                        onReady={(e) => onPlayerReady(e.target)}
                         onStateChange={(e) => stateChange()}
                     />
             </div>
