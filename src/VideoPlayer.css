@@ -5,11 +5,12 @@
 .videoplayer--player-overlay {
     position: absolute;
     display: flex;
+    gap: 1em;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 500px;
-    font-size: 5em;
     color: white;
     background: black;
     opacity: 0;
@@ -17,6 +18,12 @@
 }
 .videoplayer--player-overlay.visible {
     opacity: 1;
+}
+.videoplayer--player-overlay svg {
+    font-size: 5em;
+}
+.videoplayer--player-overlay .time {
+    font-size: 1em;
 }
 
 .videoplayer--description {

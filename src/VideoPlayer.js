@@ -10,6 +10,8 @@ import './Button.css';
 function VideoPlayer() {
     const { videoId } = useParams();
     const [ player, setPlayer ] = useState();
+    const [ time, setTime ] = useState({current: "00:00", left: "00:00"});
+
     const [ video, setVideo ] = useState({});
     const [ playing, setPlaying ] = useState(false);
 
@@ -32,6 +34,7 @@ function VideoPlayer() {
                         }
                     });
             }
+
         }, 60000);
         return () => clearInterval(interval);
     });
@@ -47,6 +50,11 @@ function VideoPlayer() {
 
     const togglePlay = () => {
         if (player) {
+            setTime({
+                current: new Date(player.getCurrentTime() * 1000).toISOString().substring(14, 19),
+                left: new Date(player.getDuration() * 1000).toISOString().substring(14, 19)
+            });
+
             if (player.getPlayerState() === 1) {
                 player.pauseVideo()
             } else {
@@ -82,6 +90,9 @@ function VideoPlayer() {
             <div className='videoplayer--player'>
                 <div className={`videoplayer--player-overlay ${!playing ? 'visible' : ''}`} onClick={() => togglePlay()}>
                     <MdPlayCircleOutline />
+                    <div className="time">
+                        {time.current} / {time.left}
+                    </div>
                 </div>
                 <YouTube videoId={videoId}
                         opts={options}
