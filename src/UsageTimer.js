@@ -5,6 +5,7 @@ import "./UsageTimer.css";
 
 function UsageTimer(props) {
     const [ remainingUsage, setRemainingUsage ] = useState(0);
+    const [ maxUsage, setMaxUsage ] = useState(0);
     const [ exceedsMaxUsage, setExceedsMaxUsage ] = useState(false);
     const [ minutesUntilUnlock, setMinutesUntilUnlock ] = useState(0);
 
@@ -13,6 +14,7 @@ function UsageTimer(props) {
             axios.get('https://api.syscall.dk/youtube/v1/usages')
                 .then((response) => {
                     setRemainingUsage(response.data.remainingUsage ?? 0);
+                    setMaxUsage(response.data.maxUsageTime ?? 0);
                     setExceedsMaxUsage(response.data.exceedsMaxUsage ?? false);
                     
                     setMinutesUntilUnlock(response.data.unlockIn ?? 0);
@@ -36,7 +38,7 @@ function UsageTimer(props) {
             }
 
             <div className="usagetimer--progressbar">
-                <div className="usagetimer--progressbar-bar" style={{width: (Math.round((remainingUsage)*100/60))+'%'}}>
+                <div className="usagetimer--progressbar-bar" style={{width: (Math.round((remainingUsage)*100/maxUsage))+'%'}}>
                     <MdLockClock /> {remainingUsage}m
                 </div>
             </div>
