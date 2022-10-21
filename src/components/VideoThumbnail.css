@@ -1,0 +1,25 @@
+.videothumbnail {
+    background-color: transparent;
+    padding: 1em;
+    transition: transform 300ms;
+}
+.videothumbnail:active {
+    transform: scale(0.9);
+}
+.videothumbnail img {
+    width: 100%;
+    min-height: 150px;
+    background-color: var(--secondary-bg-color);
+    border-radius: 1em;
+    box-shadow: rgba(50, 50, 93, 0.25) 0 50px 100px -20px, rgba(0, 0, 0, 0.3) 0 30px 60px -30px;
+}
+
+.videothumbnail--title {
+    font-weight: bold;
+}
+.videothumbnail--subtitle {
+    padding-top: 1.5em;
+    font-weight: bold;
+    color: white;
+    opacity: 0.7;
+}

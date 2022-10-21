@@ -1,0 +1,27 @@
+.categorythumbnail {
+    background-color: var(--secondary-bg-color);
+    border-radius: 1em;
+    padding: 1em;
+    transition: transform 300ms;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+}
+.categorythumbnail:active {
+    transform: scale(0.9);
+}
+
+.categorythumbnail--image {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.categorythumbnail--image img {
+    width: 100%;
+}
+
+.categorythumbnail--title {
+    font-weight: bold;
+}
