@@ -14,7 +14,7 @@ function UsageTimer(props) {
             axios.get('https://api.syscall.dk/youtube/v1/usages')
                 .then((response) => {
                     setRemainingUsage(response.data.remainingUsage ?? 0);
-                    setMaxUsage(response.data.maxUsageTime ?? 0);
+                    setMaxUsage(response.data.maxViewTime ?? 0);
                     setExceedsMaxUsage(response.data.exceedsMaxUsage ?? false);
                     
                     setMinutesUntilUnlock(response.data.unlockIn ?? 0);

@@ -99,19 +99,22 @@ class YoutubeSilkStack extends Stack {
                 "apiCertificate",
                 "arn:aws:acm:eu-west-1:179454298130:certificate/13968fa0-e47f-44d2-b35c-824dda01b974"
         );
-/*
-        const domainName = 'api.syscall.dk';
+
+        let domainName = `api-${context.environmentName}.syscall.dk`;
+        if (context.environmentName === 'production') {
+            domainName = 'api.syscall.dk';
+        }
         const dn = new DomainName(this, 'DN', {
             domainName,
             certificate: certificate,
         });
-        */
+        
 
         const httpApi = new HttpApi(this, "apiGateway", {
             defaultIntegration: new HttpLambdaIntegration('DefaultIntegration', apiDefaultHandler),
-//            defaultDomainMapping: {
-//                domainName: dn
-//            },
+            defaultDomainMapping: {
+                domainName: dn
+            },
         });
 
         httpApi.addRoutes({

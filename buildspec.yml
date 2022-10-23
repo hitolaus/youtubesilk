@@ -4,11 +4,11 @@ phases:
   pre_build:
     commands:
       - npm install
-      #- cd cdk && npm install
+      #- cd cdk && npm install && cd -
   build:
     commands:
       - npm run build
-      #- cd cdk && npx cdk deploy
+      #- cd cdk && npx cdk deploy && cd -
 
 artifacts:
   files:
