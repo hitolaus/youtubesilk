@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import YouTube from "react-youtube";
 import VideoList from '../components/VideoList';
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import axios from "axios";
-import {MdBlock, MdPlayCircleOutline} from "react-icons/md";
+import {MdBlock, MdOutlineCancel, MdPlayCircleOutline} from "react-icons/md";
 import './VideoPlayer.css';
 import '../styles/Button.css';
 
 import { motion } from "framer-motion";
 
 function VideoPlayer() {
+    const navigate = useNavigate();
+
     const { videoId } = useParams();
     const { width } = useWindowDimensions();
     const [ player, setPlayer ] = useState();
@@ -75,6 +77,10 @@ function VideoPlayer() {
         updateTime(p);
     };
 
+    const onClose = () => {
+        navigate(-1);
+    };
+
     const stateChange = () => {
         setPlaying(player.getPlayerState() === 1);
     };
@@ -103,6 +109,14 @@ function VideoPlayer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1}}>
+            <motion.div className='videoplayer--menu'
+                initial={{ y: -100 }}
+                animate={{ y: 0 }}
+                exit={{ y: -100 }}
+                transition={{ duration: 0.3, delay: 2, type: 'spring', damping: 10}}
+            >
+                <button className='outline icon' onClick={onClose}><MdOutlineCancel /></button>
+            </motion.div>
             <div className='videoplayer--player'>
                 <div className={`videoplayer--player-overlay ${!playing ? 'visible' : ''}`} onClick={() => togglePlay()}>
                     <MdPlayCircleOutline />

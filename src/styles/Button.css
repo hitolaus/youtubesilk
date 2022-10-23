@@ -11,3 +11,6 @@ button:active {
 button.icon {
     padding: 0.25em 1em;
 }
+button.outline {
+    background-color: transparent;
+}

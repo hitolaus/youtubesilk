@@ -4,8 +4,6 @@ import {AnimatePresence} from "framer-motion";
 import ScrollToTop from './components/ScrollToTop';
 import UsageTimer from './components/UsageTimer';
 
-import Header from './Header';
-
 import Categories from "./pages/Categories";
 import Videos from "./pages/Videos";
 import VideoPlayer from './pages/VideoPlayer';
@@ -15,7 +13,6 @@ function App() {
     return (
         <AnimatePresence>
             <UsageTimer>
-                <Header/>
                 <ScrollToTop>
                     <Routes key={location.pathname} location={location}>
                         <Route path="/" element={<Categories/>}/>
