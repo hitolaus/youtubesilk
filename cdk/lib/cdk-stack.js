@@ -95,9 +95,11 @@ class YoutubeSilkStack extends Stack {
         });
 
         // API Gateway
+
+        // *.syscall.dk
         const certificate = Certificate.fromCertificateArn(this,
                 "apiCertificate",
-                "arn:aws:acm:eu-west-1:179454298130:certificate/13968fa0-e47f-44d2-b35c-824dda01b974"
+                "arn:aws:acm:eu-west-1:179454298130:certificate/3b26415a-df91-41db-9d06-89242e5e8977"
         );
 
         let domainName = `api-${context.environmentName}.syscall.dk`;

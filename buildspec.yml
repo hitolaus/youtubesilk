@@ -7,6 +7,7 @@ phases:
       #- cd cdk && npm install && cd -
   build:
     commands:
+      # npm run build:test / build:production
       - npm run build
       #- cd cdk && npx cdk deploy && cd -
 
